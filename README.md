@@ -98,10 +98,10 @@ Erst umstellen, wenn die Vercel-Vorschau geprüft ist und Testanfragen angekomme
 
 1. In Vercel: Project → Settings → Domains → `anfrage.ihr-pflegestuetzpunkt.de` (ist eingetragen).
    Vercel zeigt dort den nötigen DNS-Eintrag an.
-2. Beim DNS-Anbieter der Domain `ihr-pflegestuetzpunkt.de`:
-   - Den bisherigen Eintrag für **`anfrage`** (zeigt heute auf Onepage) entfernen.
-   - Einen **CNAME** für `anfrage` auf den von Vercel angezeigten Wert anlegen
-     (in der Regel `cname.vercel-dns.com` bzw. der projektspezifische Wert).
+2. Beim DNS-Anbieter der Domain `ihr-pflegestuetzpunkt.de` (IONOS, Nameserver `*.rzone.de`):
+   - Den bisherigen **CNAME `anfrage` → `whitelabel.onepage.io`** entfernen bzw. ändern.
+   - Neu: **CNAME `anfrage` → `ac7b6cc5ee27a53c.vercel-dns-016.com`**
+     (Alternative laut Vercel: `cname.vercel-dns.com`).
 3. **Nicht anfassen:** MX- und TXT-Einträge der Hauptdomain sowie die Einträge von `@` und `www` –
    die gehören zur Hauptwebsite und zum E-Mail-Empfang.
 4. Die Resend-Einträge betreffen nur `reinkober-leadportal.com`, nicht diese Domain.
