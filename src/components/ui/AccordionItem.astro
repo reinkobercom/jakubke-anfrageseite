@@ -1,0 +1,18 @@
+---
+import styles from '../../styles/ui/accordion-item.module.css';
+interface Props { question: string; answer: string; open?: boolean; id: string }
+const { question, answer, open = false, id } = Astro.props;
+---
+<div class:list={[styles.item, open && styles.open]} data-accordion-item data-open-class={styles.open}>
+  <h3 style="margin:0;font:inherit">
+    <button type="button" class={styles.trigger} aria-expanded={open ? 'true' : 'false'} aria-controls={`${id}-panel`} id={`${id}-btn`}>
+      <span>{question}</span>
+      <span class={styles.chevron} aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5.5" x2="12" y2="18.5" /><line x1="5.5" y1="12" x2="18.5" y2="12" /></svg>
+      </span>
+    </button>
+  </h3>
+  <div class={styles.panel} id={`${id}-panel`} role="region" aria-labelledby={`${id}-btn`} style={open ? 'height:auto' : 'height:0'}>
+    <div class={styles.panelInner}>{answer}</div>
+  </div>
+</div>

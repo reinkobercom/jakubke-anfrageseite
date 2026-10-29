@@ -1,0 +1,104 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding: 118px 24px;
+  font-family: var(--font-kit-text-font);
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: center;
+}
+
+.sectionFull {
+  min-height: var(--con-kit-section-min-height, 100vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.glowA,
+.glowB { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(90px); }
+
+.glowA { top: -160px; left: 12%; width: 460px; height: 460px; background: #FFDD0026; }
+
+.glowB { bottom: -200px; right: 10%; width: 420px; height: 420px; background: #FFFFFF14; }
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-kit-key2, #FFDD00);
+  margin: 0;
+}
+
+.body { font-size: 19px; line-height: 1.6; color: #FFFFFFC7; margin: 0; max-width: 680px; }
+
+.ctaWrap { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 8px; }
+
+.ctaNote { font-size: 14px; color: #FFFFFFA3; }
+
+.reassurances {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding-top: 26px;
+  border-top: 1px solid #FFFFFF24;
+  width: 100%;
+}
+
+.reassurance {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #FFFFFFDB;
+}
+
+.reassuranceIcon { color: var(--color-kit-key2, #FFDD00); }
+
+.phoneRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 16px;
+  color: #FFFFFFA3;
+  margin-top: 4px;
+}
+
+.phoneLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-kit-white, #FFFFFF);
+  font-weight: 700;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.phoneLink:hover { color: var(--color-kit-key2, #FFDD00); }
+
+@media (max-width: 1000px) { .section { padding: 84px 20px; } }
+
+@media (max-width: 560px) {
+  .section { padding: 62px 16px; }
+  .body { font-size: 17px; }
+  .reassurances { gap: 12px 20px; }
+  .phoneLink { font-size: 18px; }
+}

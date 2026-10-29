@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import Title from '../components/ui/Title.astro';
+import Text from '../components/ui/Text.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import styles from '../styles/sections/hero-haushaltshilfe.module.css';
+---
+<Base title="Seite nicht gefunden | Pflegedienst Jakubke" description="Diese Seite gibt es nicht.">
+  <section class={styles.hero} style="background-color:var(--color-kit-light)">
+    <div class={styles.container} style="max-width:640px">
+      <div class={styles.card} style="background-color:var(--color-kit-white)">
+        <span class={styles.cardAccent} aria-hidden="true" />
+        <div class={styles.success}>
+          <Title size="sm" as="h1" align="center">Diese Seite gibt es leider nicht.</Title>
+          <Text size="md" align="center" muted>Hier geht es zu unseren Angeboten:</Text>
+          <Button href="/" variant="primary" size="md">Zur Übersicht<Icon slot="iconRight" name="arrow-right" size={17} /></Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,6 @@
+---
+import styles from '../../styles/ui/text.module.css';
+interface Props { size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'; as?: 'p' | 'span' | 'div' | 'label'; color?: string; align?: 'left' | 'center' | 'right'; muted?: boolean; strong?: boolean; class?: string; for?: string; id?: string; [key: string]: any }
+const { size = 'md', as: Tag = 'p', color, align = 'left', muted = false, strong = false, class: className, for: htmlFor, id, ...rest } = Astro.props;
+---
+<Tag id={id} for={htmlFor} class:list={[styles.text, styles[size], styles[align], muted && styles.muted, strong && styles.strong, className]} style={color ? { color } : undefined} {...rest}><slot /></Tag>

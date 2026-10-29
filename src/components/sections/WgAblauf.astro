@@ -1,0 +1,44 @@
+---
+import styles from '../../styles/sections/wg-ablauf.module.css';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Photo from '../ui/Photo.astro';
+import { reveal } from '../../lib/reveal';
+import { ablauf as c } from '../../content/senioren-wg';
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
+  <div class={styles.container}>
+    <div>
+      <div class={styles.head}>
+        <SectionHeading kicker={c.kicker} align="left">
+          <Title as="h2" size="lg">{c.headline}</Title>
+          <Text size="lg" muted>{c.intro}</Text>
+        </SectionHeading>
+      </div>
+      <div class={styles.steps}>
+        {c.steps.map((s, i) => (
+          <div class={styles.step} {...reveal({ y: 20, dur: 0.45, delay: 0.06 * i, amount: 0.4 })}>
+            <span class={styles.stepNumber}>{i + 1}</span>
+            <div class={styles.stepBody}>
+              <Title as="h3" size="sm">{s.title}</Title>
+              <Text size="md" muted>{s.text}</Text>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class={styles.contactCard}>
+      <Photo class={styles.contactPhoto} src={c.contactImage} alt={c.contactName} sizes="(max-width: 1000px) 100vw, 420px" widths={[400, 700, 1000]} />
+      <div class={styles.contactMeta}>
+        <Title as="p" size="sm">{c.contactName}</Title>
+        <Text size="sm" muted>{c.contactRole}</Text>
+      </div>
+      <Text size="sm" muted>{c.contactText}</Text>
+      <a class={styles.phone} href={c.phoneHref}><Icon name="phone" size={19} />{c.phoneLabel}</a>
+      <Button href={c.ctaHref} variant="primary" size="md" fullWidth>{c.ctaLabel}<Icon slot="iconRight" name="arrow-right" size={17} /></Button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+---
+import styles from '../../styles/sections/wg-vergleich.module.css';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Icon from '../ui/Icon.astro';
+import { reveal } from '../../lib/reveal';
+import { wgStattHeim as c } from '../../content/senioren-wg';
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
+  <div class={styles.container}>
+    <div class={styles.head}>
+      <SectionHeading kicker={c.kicker} align="center">
+        <Title as="h2" size="lg" align="center">{c.headline}</Title>
+        <Text size="lg" muted align="center">{c.intro}</Text>
+      </SectionHeading>
+    </div>
+    <div class={styles.columns}>
+      <div class:list={[styles.column, styles.columnMuted]} {...reveal({ y: 22, dur: 0.5, amount: 0.25 })}>
+        <p class={styles.columnTitle}>{c.leftTitle}</p>
+        <ul class={styles.items}>
+          {c.leftItems.map((e) => <li class={styles.item}><span class={styles.markMuted}><Icon name="clock" size={19} /></span>{e.text}</li>)}
+        </ul>
+      </div>
+      <div class:list={[styles.column, styles.columnHighlight]} {...reveal({ y: 22, dur: 0.5, delay: 0.1, amount: 0.25 })}>
+        <p class={styles.columnTitle}>{c.rightTitle}</p>
+        <ul class={styles.items}>
+          {c.rightItems.map((e) => <li class={styles.item}><span class={styles.markGood}><Icon name="check" size={19} strokeWidth={2.6} /></span>{e.text}</li>)}
+        </ul>
+      </div>
+    </div>
+    <div class={styles.quoteBox}>
+      <span class={styles.quoteUnderline} aria-hidden="true" />
+      <p class={styles.quote}>{c.quote}</p>
+      <p class={styles.quoteSource}>{c.quoteSource}</p>
+    </div>
+  </div>
+</section>

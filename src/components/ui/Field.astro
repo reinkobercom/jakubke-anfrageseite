@@ -1,0 +1,14 @@
+---
+import styles from '../../styles/ui/field.module.css';
+interface Props { id: string; name: string; label: string; type?: 'text' | 'tel' | 'email'; placeholder?: string; autocomplete?: string; inputmode?: 'text' | 'tel' | 'email'; multiline?: boolean; rows?: number; required?: boolean; maxlength?: number }
+const { id, name, label, type = 'text', placeholder, autocomplete, inputmode, multiline = false, rows = 5, required = false, maxlength } = Astro.props;
+---
+<div class={styles.field} data-field={name} data-invalid-class={styles.invalid}>
+  <label class={styles.label} for={id}>{label}</label>
+  {multiline ? (
+    <textarea id={id} name={name} class:list={[styles.input, styles.textarea]} placeholder={placeholder} rows={rows} aria-describedby={`${id}-error`} data-required={required ? '' : undefined} maxlength={maxlength ?? 5000}></textarea>
+  ) : (
+    <input id={id} name={name} class={styles.input} type={type} placeholder={placeholder} autocomplete={autocomplete} inputmode={inputmode} aria-describedby={`${id}-error`} data-required={required ? '' : undefined} maxlength={maxlength ?? 200} />
+  )}
+  <span class={styles.error} id={`${id}-error`} role="alert" hidden data-error></span>
+</div>

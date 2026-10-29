@@ -1,0 +1,174 @@
+---
+// Hero mit 5-Schritt-Anfrageformular (Haushaltshilfe und Senioren-WG).
+// Optik 1:1 aus Onepage; Versand über /api/anfrage (Resend).
+import hhStyles from '../../styles/sections/hero-haushaltshilfe.module.css';
+import wgStyles from '../../styles/sections/hero-wg.module.css';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import OptionTile from '../ui/OptionTile.astro';
+import Field from '../ui/Field.astro';
+import Photo from '../ui/Photo.astro';
+import logo from '../../assets/logo-jakubke.svg';
+import { enter } from '../../lib/reveal';
+import { site } from '../../data/site';
+import type { ImageMetadata } from 'astro';
+
+interface Step { key: string; title: string; hint?: string; options: { label: string }[]; multiple?: boolean; grid?: boolean }
+interface Props {
+  form: 'haushaltshilfe' | 'seniorenWg';
+  c: Record<string, any> & { expertImage: ImageMetadata };
+  steps: Step[];
+  noteField?: boolean;
+}
+
+const { form, c, steps, noteField = false } = Astro.props;
+const styles = form === 'haushaltshilfe' ? hhStyles : wgStyles;
+const idp = form === 'haushaltshilfe' ? 'hh' : 'wg';
+const TOTAL = steps.length + 1;
+const list = (v: any) => (Array.isArray(v) ? v : []);
+---
+<section id={c.anchorId ?? 'anfrage'} class={styles.hero} style={{ backgroundColor: c.bgColor }}>
+  <span class={styles.blobA} aria-hidden="true" />
+  <span class={styles.blobB} aria-hidden="true" />
+  {styles.blobC && <span class={styles.blobC} aria-hidden="true" />}
+
+  <div class={styles.container}>
+    <div class={styles.grid}>
+      <div class={styles.left} {...enter({ y: 22, dur: 0.55 })}>
+        <img class={styles.logo} src={logo.src} width={logo.width} height={logo.height} alt={c.logoAlt} fetchpriority="high" />
+
+        <Badge variant="soft"><Icon slot="icon" name="map-pin" size={15} />{c.eyebrow}</Badge>
+
+        <Title as="h1" size="xl">{c.headline}</Title>
+
+        <Text size="lg" muted>{c.subline}</Text>
+
+        <ul class={styles.bullets}>
+          {list(c.bullets).map((b: any) => (
+            <li class={styles.bullet}>
+              <span class={styles.bulletIcon}><Icon name="check-circle" size={21} /></span>
+              <Text size="md">{b.text}</Text>
+            </li>
+          ))}
+        </ul>
+
+        <div class={styles.stats}>
+          {list(c.stats).map((s: any) => (
+            <div class={styles.stat}>
+              <span class={styles.statValue} data-years-since={s.dynamicYears ? site.foundedYear : undefined}>{s.value}</span>
+              <Text size="xs" muted>{s.label}</Text>
+            </div>
+          ))}
+        </div>
+
+        <div class={styles.expert}>
+          <Photo src={c.expertImage} alt={c.expertName} class={styles.expertAvatar} sizes="56px" widths={[112, 168]} eager />
+          <div class={styles.expertMeta}>
+            <Text size="sm" strong>{c.expertName}</Text>
+            <Text size="xs" muted>{c.expertRole}</Text>
+            <a class={styles.phoneLink} href={c.phoneHref}><Icon name="phone" size={15} />{c.phoneLabel}</a>
+          </div>
+        </div>
+      </div>
+
+      <div class={styles.card} {...enter({ y: 30, dur: 0.55, delay: 0.12, style: `background-color:${c.cardColor}` })}>
+        <span class={styles.cardAccent} aria-hidden="true" />
+
+        <form
+          data-multistep-form
+          data-form={form}
+          data-total={TOTAL}
+          data-required-error={c.requiredError}
+          data-error-text={c.errorText}
+          data-sending-label={c.sendingLabel}
+          data-submit-label={c.submitLabel}
+          action="/api/anfrage"
+          method="post"
+          novalidate
+        >
+          <div class={styles.cardHead}>
+            <Title size="sm" as="h2">{c.formTitle}</Title>
+            <Text size="sm" muted>{c.formSubtitle}</Text>
+          </div>
+
+          <div class={styles.progress}>
+            <div class={styles.progressTrack}>
+              <div class={styles.progressFill} data-progress style={{ width: `${(1 / TOTAL) * 100}%` }} />
+            </div>
+            <Text size="xs" muted aria-live="polite">
+              {`${c.stepLabel} `}<span data-step-current>1</span>{` ${c.ofLabel} ${TOTAL}`}
+            </Text>
+          </div>
+
+          {steps.map((step, i) => (
+            <fieldset class="step" data-step={i} data-key={step.key} data-multiple={step.multiple ? '' : undefined} hidden={i !== 0} aria-labelledby={`${idp}-step-${i}`} style="border:0;margin:0;padding:0;min-width:0">
+              <div class={styles.stepHead}>
+                <Title size="sm" as="h3" id={`${idp}-step-${i}`}>{step.title}</Title>
+                {step.hint && <Text size="sm" muted>{step.hint}</Text>}
+              </div>
+              <div class={step.grid ? styles.optionsGrid : styles.options}>
+                {step.options.map((o) => (
+                  <OptionTile label={o.label} name={step.key} multiple={step.multiple} />
+                ))}
+              </div>
+            </fieldset>
+          ))}
+
+          <fieldset class="step" data-step={steps.length} data-contact hidden aria-labelledby={`${idp}-step-contact`} style="border:0;margin:0;padding:0;min-width:0">
+            <div class={styles.stepHead}>
+              <Title size="sm" as="h3" id={`${idp}-step-contact`}>{c.kontaktTitle}</Title>
+            </div>
+            <div class={styles.fields}>
+              <Field id={`${idp}-name`} name="name" label={c.nameLabel} placeholder={c.namePlaceholder} autocomplete="name" required />
+              <Field id={`${idp}-telefon`} name="telefon" label={c.phoneFieldLabel} placeholder={c.phonePlaceholder} type="tel" inputmode="tel" autocomplete="tel" required />
+              <Field id={`${idp}-email`} name="email" label={c.emailLabel} placeholder={c.emailPlaceholder} type="email" inputmode="email" autocomplete="email" />
+              <div role="group" aria-labelledby={`${idp}-reach-label`}>
+                <Text size="sm" strong class={styles.reachLabel} id={`${idp}-reach-label`}>{c.reachLabel}</Text>
+                <div class={styles.reachGrid}>
+                  {list(c.reachOptions).map((o: any) => <OptionTile label={o.label} name="erreichbarkeit" />)}
+                </div>
+              </div>
+              {noteField && (
+                <div>
+                  <Text size="sm" strong class={styles.reachLabel} as="label" for={`${idp}-anmerkung`}>{c.noteLabel}</Text>
+                  <textarea id={`${idp}-anmerkung`} name="anmerkung" class={styles.textarea} placeholder={c.notePlaceholder} maxlength="5000"></textarea>
+                </div>
+              )}
+              <OptionTile label={c.consentText} name="datenschutz" value="ja" multiple />
+              <a class={styles.consentLink} href={c.consentLinkHref} target="_blank" rel="noopener noreferrer">{c.consentLinkLabel}</a>
+            </div>
+          </fieldset>
+
+          <div class="hp-field" aria-hidden="true">
+            <label for={`${idp}-website`}>Website</label>
+            <input id={`${idp}-website`} type="text" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class={styles.nav}>
+            <Button variant="ghost" size="md" data-back hidden><Icon slot="iconLeft" name="arrow-left" size={17} />{c.backLabel}</Button>
+            <span class={styles.navGrow} />
+            <Button variant="primary" size="lg" data-next disabled><Icon slot="iconRight" name="arrow-right" size={18} />{c.nextLabel}</Button>
+            <Button variant="accent" size="lg" type="submit" data-submit hidden><Icon slot="iconRight" name="arrow-right" size={18} /><span data-submit-text>{c.submitLabel}</span></Button>
+          </div>
+
+          <div class={styles.errorBox} data-error-box hidden role="alert">
+            <Text size="sm"><span data-error-message></span></Text>
+          </div>
+
+          <div class={styles.disclaimer}>
+            <Icon name="shield" size={16} />
+            <Text size="xs" muted align="center">{c.disclaimer}</Text>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initMultistepForms } from '../../lib/forms-client';
+  initMultistepForms();
+</script>

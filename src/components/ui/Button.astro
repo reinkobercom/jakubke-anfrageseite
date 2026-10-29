@@ -1,0 +1,11 @@
+---
+import styles from '../../styles/ui/button.module.css';
+interface Props { variant?: 'primary' | 'accent' | 'outline' | 'ghost'; size?: 'sm' | 'md' | 'lg'; href?: string; type?: 'button' | 'submit'; fullWidth?: boolean; disabled?: boolean; ariaLabel?: string; class?: string; [key: string]: any }
+const { variant = 'primary', size = 'md', href, type = 'button', fullWidth = false, disabled = false, ariaLabel, class: className, ...rest } = Astro.props;
+const cls = [styles.button, styles[variant], styles[size], fullWidth && styles.full, className];
+---
+{href && !disabled ? (
+  <a class:list={cls} href={href} aria-label={ariaLabel} {...rest}><slot name="iconLeft" /><span><slot /></span><slot name="iconRight" /></a>
+) : (
+  <button class:list={cls} type={type} disabled={disabled} aria-label={ariaLabel} {...rest}><slot name="iconLeft" /><span><slot /></span><slot name="iconRight" /></button>
+)}

@@ -1,0 +1,34 @@
+---
+// Blauer Abschluss-Aufruf
+import hh from '../../styles/sections/cta-haushaltshilfe.module.css';
+import wg from '../../styles/sections/cta-wg.module.css';
+import Title from '../ui/Title.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { reveal } from '../../lib/reveal';
+interface Props { variant: 'haushaltshilfe' | 'seniorenWg'; c: Record<string, any> }
+const { variant, c } = Astro.props;
+const styles = variant === 'haushaltshilfe' ? hh : wg;
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
+  <span class={styles.glowA} aria-hidden="true" />
+  <span class={styles.glowB} aria-hidden="true" />
+  <div class={styles.container} {...reveal({ y: 26, dur: 0.6, amount: 0.3 })}>
+    <p class={styles.kicker}>{c.kicker}</p>
+    <Title as="h2" size="xl" align="center" color="var(--color-kit-white)">{c.headline}</Title>
+    <p class={styles.body}>{c.body}</p>
+    <div class={styles.ctaWrap}>
+      <Button href={c.ctaHref} variant="accent" size="lg">{c.ctaLabel}<Icon slot="iconRight" name="arrow-right" size={19} /></Button>
+      <span class={styles.ctaNote}>{c.ctaNote}</span>
+    </div>
+    <span class={styles.phoneRow}>
+      {c.phoneIntro}
+      <a class={styles.phoneLink} href={c.phoneHref}><Icon name="phone" size={19} />{c.phoneLabel}</a>
+    </span>
+    <div class={styles.reassurances}>
+      {c.reassurances.map((r: any) => (
+        <span class={styles.reassurance}><span class={styles.reassuranceIcon}><Icon name="check" size={17} strokeWidth={2.7} /></span>{r.text}</span>
+      ))}
+    </div>
+  </div>
+</section>

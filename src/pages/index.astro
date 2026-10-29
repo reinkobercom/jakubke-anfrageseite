@@ -1,0 +1,8 @@
+---
+import Base from '../layouts/Base.astro';
+import Linktree from '../components/sections/Linktree.astro';
+import { sections } from '../data/sections';
+---
+<Base title="Pflegedienst Constanze Jakubke | Alle Links" description="Alle Links des ambulanten und Palliativ-Pflegedienstes Constanze Jakubke aus Werne: Haushaltshilfe anfragen, Website, Karriere und Kontakt.">
+  {sections.start.linktree && <Linktree />}
+</Base>

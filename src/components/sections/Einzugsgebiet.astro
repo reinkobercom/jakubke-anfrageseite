@@ -1,0 +1,40 @@
+---
+import styles from '../../styles/sections/einzugsgebiet.module.css';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { reveal } from '../../lib/reveal';
+import { einzugsgebiet as c } from '../../content/haushaltshilfe';
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
+  <div class={styles.container}>
+    <div class={styles.left}>
+      <SectionHeading kicker={c.kicker} align="left">
+        <Title as="h2" size="lg">{c.headline}</Title>
+        <Text size="lg" muted>{c.intro}</Text>
+      </SectionHeading>
+      <div class={styles.address}>
+        <Text size="sm" strong>{c.addressTitle}</Text>
+        <span class={styles.addressRow}><span class={styles.addressIcon}><Icon name="map-pin" size={17} /></span>{c.addressOne}</span>
+        <span class={styles.addressRow}><span class={styles.addressIcon}><Icon name="map-pin" size={17} /></span>{c.addressTwo}</span>
+      </div>
+      <Button href={c.ctaHref} variant="primary" size="lg">{c.ctaLabel}<Icon slot="iconRight" name="arrow-right" size={18} /></Button>
+    </div>
+    <div>
+      <ul class={styles.placeGrid} style="list-style:none;padding:0;margin-top:0">
+        {c.places.map((p, i) => (
+          <li class={styles.place} {...reveal({ y: 16, dur: 0.4, delay: 0.035 * i, amount: 0.4 })}><span class={styles.dot} aria-hidden="true" />{p.name}</li>
+        ))}
+      </ul>
+      <div class={styles.note}>
+        <span class={styles.noteIcon}><Icon name="heart" size={22} /></span>
+        <span class={styles.noteBody}>
+          <p class={styles.noteTitle}>{c.noteTitle}</p>
+          <p class={styles.noteText}>{c.noteText}</p>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

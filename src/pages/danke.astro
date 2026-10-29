@@ -1,0 +1,37 @@
+---
+// Gemeinsame Dankeseite nach dem Absenden – im Stil der Formular-Erfolgsbox.
+import Base from '../layouts/Base.astro';
+import Footer from '../components/sections/Footer.astro';
+import Title from '../components/ui/Title.astro';
+import Text from '../components/ui/Text.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import styles from '../styles/sections/hero-haushaltshilfe.module.css';
+import logo from '../assets/logo-jakubke.svg';
+import { enter } from '../lib/reveal';
+import { danke as d } from '../content/danke';
+import { footer } from '../content/kontakt';
+---
+<Base title="Vielen Dank | Pflegedienst Jakubke" description="Ihre Anfrage ist beim Pflegedienst Constanze Jakubke angekommen.">
+  <section class={styles.hero} style="background-color:var(--color-kit-light)">
+    <span class={styles.blobA} aria-hidden="true" />
+    <span class={styles.blobB} aria-hidden="true" />
+    <span class={styles.blobC} aria-hidden="true" />
+    <div class={styles.container} style="max-width:640px">
+      <div style="display:flex;justify-content:center;margin-bottom:28px">
+        <a href={d.homeHref}><img class={styles.logo} src={logo.src} width={logo.width} height={logo.height} alt="Ambulanter und Palliativ-Pflegedienst Constanze Jakubke" /></a>
+      </div>
+      <div class={styles.card} {...enter({ y: 30, dur: 0.55, style: 'background-color:var(--color-kit-white)' })}>
+        <span class={styles.cardAccent} aria-hidden="true" />
+        <div class={styles.success}>
+          <span class={styles.successIcon}><Icon name="check" size={34} strokeWidth={2.6} /></span>
+          <Title size="sm" as="h1" align="center">{d.title}</Title>
+          <Text size="md" align="center" muted>{d.text}</Text>
+          <Button href={d.phoneHref} variant="outline" size="md"><Icon slot="iconLeft" name="phone" size={17} />{d.phoneLabel}</Button>
+          <Button href={d.homeHref} variant="ghost" size="md">{d.homeLabel}<Icon slot="iconRight" name="arrow-right" size={17} /></Button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <Footer c={footer} />
+</Base>

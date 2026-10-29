@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import Kontakt from '../components/sections/Kontakt.astro';
+import Footer from '../components/sections/Footer.astro';
+import { sections } from '../data/sections';
+import * as c from '../content/kontakt';
+const s = sections.kontakt;
+---
+<Base title="Kontakt | Pflegedienst Jakubke in Werne" description="Kontaktieren Sie den Ambulanten Pflegedienst Constanze Jakubke in Werne: Kontaktformular für allgemeine Anfragen, Telefon (0 23 89) 900 520 und Adresse. Antwort innerhalb von 24 Stunden an Werktagen.">
+  {s.kontakt && <Kontakt />}
+  {s.footer && <Footer c={c.footer} />}
+</Base>

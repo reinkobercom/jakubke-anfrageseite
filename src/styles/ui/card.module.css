@@ -1,0 +1,47 @@
+.card {
+  position: relative;
+  border-radius: 20px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sm { padding: 20px; }
+.md { padding: 26px; }
+.lg { padding: 34px; }
+
+.light {
+  background-color: var(--color-kit-white, #FFFFFF);
+  border: 1px solid #00359524;
+  box-shadow: 0 18px 40px -30px #00359566;
+}
+
+.tinted {
+  background-color: #00359508;
+  border: 1px solid #00359524;
+}
+
+.onDark {
+  background-color: #FFFFFF12;
+  border: 1px solid #FFFFFF29;
+}
+
+.accent {
+  background-color: var(--color-kit-key2, #FFDD00);
+  border: 1px solid var(--color-kit-key2, #FFDD00);
+}
+
+.outlined {
+  background-color: transparent;
+  border: 1.5px solid #00359533;
+}
+
+.hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 50px -28px #00359580;
+  border-color: #00359566;
+}
+
+@media (max-width: 560px) {
+  .lg { padding: 24px; }
+  .md { padding: 20px; }
+}

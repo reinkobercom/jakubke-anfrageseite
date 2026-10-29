@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroForm from '../components/sections/HeroForm.astro';
+import TrustBand from '../components/sections/TrustBand.astro';
+import Kosten from '../components/sections/Kosten.astro';
+import Leistungen from '../components/sections/Leistungen.astro';
+import Menschen from '../components/sections/Menschen.astro';
+import Kundenstimmen from '../components/sections/Kundenstimmen.astro';
+import Einzugsgebiet from '../components/sections/Einzugsgebiet.astro';
+import ClosingCta from '../components/sections/ClosingCta.astro';
+import Faq from '../components/sections/Faq.astro';
+import Footer from '../components/sections/Footer.astro';
+import { sections } from '../data/sections';
+import { images } from '../data/images';
+import * as c from '../content/haushaltshilfe';
+
+const s = sections.haushaltshilfe;
+const h = c.hero;
+const steps = [
+  { key: 'fuer_wen', title: h.step1Title, options: h.step1Options },
+  { key: 'ort', title: h.step2Title, options: h.step2Options, grid: true },
+  { key: 'leistungen', title: h.step3Title, hint: h.step3Hint, options: h.step3Options, multiple: true },
+  { key: 'pflegegrad', title: h.step4Title, options: h.step4Options },
+];
+---
+<Base title="Haushaltshilfe in Werne und Umgebung | Pflegedienst Jakubke" description="Haushaltshilfe in Werne, Selm, Lünen, Bergkamen, Kamen und Umgebung. Reinigung, Wäsche, Einkauf und Arztbegleitung. Ab Pflegegrad 1 übernimmt meist die Pflegekasse. Kostenloser Rückruf." ogImage={images.begleitungSenioren.src}>
+  {s.hero && <HeroForm form="haushaltshilfe" c={h} steps={steps} />}
+  {s.vertrauensleiste && <TrustBand variant="haushaltshilfe" c={c.vertrauensleiste} />}
+  {s.kostenuebernahme && <Kosten />}
+  {s.leistungen && <Leistungen />}
+  {s.menschen && <Menschen />}
+  {s.kundenstimmen && <Kundenstimmen />}
+  {s.einzugsgebiet && <Einzugsgebiet />}
+  {s.abschluss && <ClosingCta variant="haushaltshilfe" c={c.abschluss} />}
+  {s.faq && <Faq c={c.faq} id="faq-hh" />}
+  {s.footer && <Footer c={c.footer} />}
+</Base>

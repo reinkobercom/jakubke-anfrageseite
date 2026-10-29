@@ -1,0 +1,26 @@
+---
+import styles from '../../styles/sections/footer.module.css';
+import Icon from '../ui/Icon.astro';
+import logo from '../../assets/logo-jakubke.svg';
+interface Props { c: Record<string, any> }
+const { c } = Astro.props;
+---
+<footer class={styles.footer} style={{ backgroundColor: c.bgColor }}>
+  <div class={styles.container}>
+    <div class={styles.brand}>
+      <img class={styles.logo} src={logo.src} width={logo.width} height={logo.height} alt={c.logoAlt} loading="lazy" />
+      <p class={styles.tagline}>{c.tagline}</p>
+    </div>
+    <div class={styles.contact}>
+      <p class={styles.contactTitle}>{c.contactTitle}</p>
+      <a class={styles.contactRow} href={c.phoneHref}><span class={styles.contactIcon}><Icon name="phone" size={17} /></span>{c.phoneLabel}</a>
+      <span class={styles.contactRow}><span class={styles.contactIcon}><Icon name="map-pin" size={17} /></span>{c.addressLabel}</span>
+    </div>
+  </div>
+  <div class={styles.bottom}>
+    <nav class={styles.links} aria-label="Rechtliches">
+      {c.links.map((l: any) => <a class={styles.link} href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>)}
+    </nav>
+    <span class={styles.copyright}>{c.copyright}</span>
+  </div>
+</footer>

@@ -1,0 +1,69 @@
+.tile {
+  font-family: var(--font-kit-text-font);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 58px;
+  padding: 14px 16px;
+  text-align: left;
+  background-color: var(--color-kit-white, #FFFFFF);
+  border: 1.5px solid #00359533;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-kit-key1, #003595);
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.4;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.tile:hover {
+  border-color: var(--color-kit-key1, #003595);
+  background-color: #0035950A;
+}
+
+.tile:focus-visible {
+  outline: 3px solid var(--color-kit-key1, #003595);
+  outline-offset: 2px;
+}
+
+.selected {
+  border-color: var(--color-kit-key1, #003595);
+  background-color: #0035950F;
+  font-weight: 600;
+}
+
+.label { flex: 1 1 auto; min-width: 0; }
+
+.mark {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1.5px solid #00359540;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.markSquare { border-radius: 7px; }
+
+.selected .mark {
+  background-color: var(--color-kit-key1, #003595);
+  border-color: var(--color-kit-key1, #003595);
+  color: var(--color-kit-white, #FFFFFF);
+}
+
+.lead {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: var(--color-kit-key1, #003595);
+}

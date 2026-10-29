@@ -1,0 +1,30 @@
+---
+// Vertrauensleiste (blaues Band mit Zahlen)
+import hh from '../../styles/sections/trust-haushaltshilfe.module.css';
+import wg from '../../styles/sections/trust-wg.module.css';
+import { reveal } from '../../lib/reveal';
+import { site } from '../../data/site';
+interface Props { variant: 'haushaltshilfe' | 'seniorenWg'; c: Record<string, any> }
+const { variant, c } = Astro.props;
+const styles = variant === 'haushaltshilfe' ? hh : wg;
+---
+<section class={styles.band} style={{ backgroundColor: c.bgColor }}>
+  <span class={styles.stripe} aria-hidden="true" />
+  <div class={styles.container}>
+    <div {...reveal({ y: 18, dur: 0.5, amount: 0.4 })}>
+      <p class={styles.kicker}>{c.kicker}</p>
+      <p class={styles.claim}>{c.claim}</p>
+    </div>
+    <div class={styles.stats}>
+      {c.stats.map((s: any, i: number) => (
+        <div class={styles.stat} {...reveal({ y: 18, dur: 0.45, delay: 0.06 * i, amount: 0.4 })}>
+          <span class={styles.value} style={{ color: c.valueColor }}>
+            <span data-years-since={s.dynamicYears ? site.foundedYear : undefined}>{s.value}</span>
+            <span class={styles.suffix}>{s.suffix}</span>
+          </span>
+          <p class={styles.label}>{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

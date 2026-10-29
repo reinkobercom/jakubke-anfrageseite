@@ -1,0 +1,124 @@
+---
+import styles from '../../styles/sections/kontakt.module.css';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import OptionTile from '../ui/OptionTile.astro';
+import Field from '../ui/Field.astro';
+import logo from '../../assets/logo-jakubke.svg';
+import { enter } from '../../lib/reveal';
+import { kontakt as c } from '../../content/kontakt';
+---
+<section id="kontakt" class={styles.kontakt} style={{ backgroundColor: c.bgColor }}>
+  <span class={styles.blobA} aria-hidden="true" />
+  <span class={styles.blobB} aria-hidden="true" />
+
+  <div class={styles.container}>
+    <div class={styles.grid}>
+      <div class={styles.left} {...enter({ y: 22, dur: 0.55 })}>
+        <a class={styles.logoLink} href={c.logoHref}>
+          <img class={styles.logo} src={logo.src} width={logo.width} height={logo.height} alt={c.logoAlt} fetchpriority="high" />
+        </a>
+
+        <Badge variant="soft"><Icon slot="icon" name="mail" size={15} />{c.eyebrow}</Badge>
+        <Title as="h1" size="xl">{c.headline}</Title>
+        <Text size="lg" muted>{c.subline}</Text>
+
+        <div class={styles.info}>
+          <span class={styles.infoTitle}>{c.infoTitle}</span>
+          <a class={styles.infoRow} href={c.phoneHref}>
+            <span class={styles.infoIcon}><Icon name="phone" size={19} /></span>
+            <span class={styles.infoText}>{c.phoneLabel}</span>
+          </a>
+          <a class={styles.infoRow} href={`mailto:${c.emailAddress}`}>
+            <span class={styles.infoIcon}><Icon name="mail" size={19} /></span>
+            <span class={styles.infoText}>{c.emailAddress}</span>
+          </a>
+          <span class={styles.infoRow}>
+            <span class={styles.infoIcon}><Icon name="map-pin" size={19} /></span>
+            <span class={styles.infoText}>{c.addressLabel}</span>
+          </span>
+          <span class={styles.infoRow}>
+            <span class={styles.infoIcon}><Icon name="clock" size={19} /></span>
+            <span class={styles.infoText}>{c.hoursLabel}</span>
+          </span>
+        </div>
+
+        <ul class={styles.bullets}>
+          {c.bullets.map((b) => (
+            <li class={styles.bullet}>
+              <span class={styles.bulletIcon}><Icon name="check-circle" size={21} /></span>
+              <Text size="md">{b.text}</Text>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class={styles.card} {...enter({ y: 30, dur: 0.55, delay: 0.12, style: `background-color:${c.cardColor}` })}>
+        <span class={styles.cardAccent} aria-hidden="true" />
+        <form
+          class={styles.form}
+          data-contact-form
+          action="/api/anfrage"
+          method="post"
+          novalidate
+          data-required-error={c.requiredError}
+          data-consent-error={c.consentError}
+          data-error-text={c.errorText}
+          data-sending-label={c.sendingLabel}
+          data-submit-label={c.submitLabel}
+        >
+          <div class={styles.cardHead}>
+            <Title size="sm" as="h2">{c.formTitle}</Title>
+            <Text size="sm" muted>{c.formSubtitle}</Text>
+          </div>
+
+          <div class={styles.fields}>
+            <div class={styles.twoCol}>
+              <Field id="kt-name" name="name" label={c.nameLabel} placeholder={c.namePlaceholder} autocomplete="name" required />
+              <Field id="kt-email" name="email" label={c.emailLabel} placeholder={c.emailPlaceholder} type="email" inputmode="email" autocomplete="email" required />
+            </div>
+            <Field id="kt-telefon" name="telefon" label={c.phoneFieldLabel} placeholder={c.phonePlaceholder} type="tel" inputmode="tel" autocomplete="tel" />
+
+            <div role="group" aria-labelledby="kt-subject-label">
+              <Text size="sm" strong class={styles.subjectLabel} id="kt-subject-label">{c.subjectLabel}</Text>
+              <div class={styles.subjectGrid}>
+                {c.subjectOptions.map((o) => <OptionTile label={o.label} name="betreff" />)}
+              </div>
+            </div>
+
+            <Field id="kt-nachricht" name="nachricht" label={c.messageLabel} placeholder={c.messagePlaceholder} multiline rows={6} required />
+
+            <OptionTile label={c.consentText} name="datenschutz" value="ja" multiple />
+            <a class={styles.consentLink} href={c.consentLinkHref} target="_blank" rel="noopener noreferrer">{c.consentLinkLabel}</a>
+          </div>
+
+          <div class="hp-field" aria-hidden="true">
+            <label for="kt-website">Website</label>
+            <input id="kt-website" type="text" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class={styles.nav}>
+            <Button variant="accent" size="lg" type="submit" fullWidth data-submit><span data-submit-text>{c.submitLabel}</span><Icon slot="iconRight" name="arrow-right" size={18} /></Button>
+          </div>
+
+          <div class={styles.errorBox} data-error-box hidden role="alert">
+            <Text size="sm"><span data-error-message></span></Text>
+          </div>
+
+          <div class={styles.disclaimer}>
+            <Icon name="shield" size={16} />
+            <Text size="xs" muted align="center">{c.disclaimer}</Text>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initContactForms } from '../../lib/forms-client';
+  initContactForms();
+</script>

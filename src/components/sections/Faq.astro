@@ -1,0 +1,81 @@
+---
+import styles from '../../styles/sections/faq.module.css';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Photo from '../ui/Photo.astro';
+import AccordionItem from '../ui/AccordionItem.astro';
+interface Props { c: Record<string, any>; id: string }
+const { c, id } = Astro.props;
+// FAQ als strukturierte Daten für Google
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: c.faqs.map((f: any) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })),
+};
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
+  <div class={styles.container}>
+    <div class={styles.side}>
+      <div class={styles.imageWrap}>
+        <Photo class={styles.photo} src={c.image} alt={c.imageAlt} sizes="(max-width: 1000px) 100vw, 500px" />
+      </div>
+      <div class={styles.box}>
+        <Title as="p" size="sm">{c.boxTitle}</Title>
+        <Text size="sm" muted>{c.boxText}</Text>
+        <span class={styles.boxCta}>
+          <Button href={c.ctaHref} variant="primary" size="md">{c.ctaLabel}<Icon slot="iconRight" name="arrow-right" size={17} /></Button>
+        </span>
+      </div>
+    </div>
+    <div class={styles.list}>
+      <div class={styles.listHead}>
+        <SectionHeading kicker={c.kicker} align="left">
+          <Title as="h2" size="lg">{c.headline}</Title>
+        </SectionHeading>
+      </div>
+      <div data-accordion>
+        {c.faqs.map((f: any, i: number) => (
+          <AccordionItem id={`${id}-${i}`} question={f.question} answer={f.answer} open={i === 0} />
+        ))}
+      </div>
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+</section>
+
+
+<script>
+  // Akkordeon: immer nur eine Frage offen, Höhe animiert (wie im Original)
+  document.querySelectorAll('[data-accordion]').forEach((acc) => {
+    const items = [...acc.querySelectorAll<HTMLElement>('[data-accordion-item]')];
+    const setOpen = (item: HTMLElement, open: boolean) => {
+      const btn = item.querySelector<HTMLButtonElement>('button')!;
+      const panel = item.querySelector<HTMLElement>('[role="region"]')!;
+      const inner = panel.firstElementChild as HTMLElement;
+      item.classList.toggle(item.dataset.openClass!, open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (panel.style.height === 'auto') panel.style.height = `${inner.scrollHeight}px`;
+      requestAnimationFrame(() => {
+        panel.style.height = open ? `${inner.scrollHeight}px` : '0px';
+      });
+    };
+    items.forEach((item) => {
+      item.querySelector('button')!.addEventListener('click', () => {
+        const isOpen = item.querySelector('button')!.getAttribute('aria-expanded') === 'true';
+        items.forEach((other) => other !== item && other.querySelector('button')!.getAttribute('aria-expanded') === 'true' && setOpen(other, false));
+        setOpen(item, !isOpen);
+      });
+    });
+    window.addEventListener('resize', () => {
+      items.forEach((item) => {
+        if (item.querySelector('button')!.getAttribute('aria-expanded') === 'true') {
+          const panel = item.querySelector<HTMLElement>('[role="region"]')!;
+          panel.style.height = `${(panel.firstElementChild as HTMLElement).scrollHeight}px`;
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,52 @@
+---
+// Kundenstimmen: echte Google-Bewertungen über Trustindex.
+// Die Widgets werden erst geladen, wenn die Sektion in die Nähe des Sichtbereichs kommt.
+import styles from '../../styles/sections/kundenstimmen.module.css';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Title from '../ui/Title.astro';
+import { kundenstimmen as c } from '../../content/haushaltshilfe';
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }} data-trustindex-section>
+  <div class={styles.container}>
+    <div class={styles.head}>
+      <SectionHeading kicker={c.kicker} align="left">
+        <Title as="h2" size="lg">{c.headline}</Title>
+      </SectionHeading>
+      <div class="ti-button" data-trustindex={c.trustindexButton}></div>
+    </div>
+    <div class="ti-slider" data-trustindex={c.trustindexSlider}></div>
+  </div>
+</section>
+
+<style>
+  .ti-button { flex: 0 0 auto; min-height: 60px; display: flex; justify-content: center; align-items: center; }
+  .ti-slider { min-height: 260px; }
+  @media (max-width: 560px) { .ti-button { width: 100%; } }
+</style>
+
+<script>
+  const load = (section: Element) => {
+    section.querySelectorAll<HTMLElement>('[data-trustindex]').forEach((box) => {
+      if (box.dataset.loaded) return;
+      box.dataset.loaded = '1';
+      const s = document.createElement('script');
+      s.src = `https://cdn.trustindex.io/loader.js?${box.dataset.trustindex}`;
+      s.defer = true;
+      s.async = true;
+      box.appendChild(s);
+    });
+  };
+  document.querySelectorAll('[data-trustindex-section]').forEach((section) => {
+    if (!('IntersectionObserver' in window)) return load(section);
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          load(section);
+        }
+      },
+      { rootMargin: '600px 0px' },
+    );
+    io.observe(section);
+  });
+</script>

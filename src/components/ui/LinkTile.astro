@@ -1,0 +1,14 @@
+---
+import styles from '../../styles/ui/link-tile.module.css';
+import Icon from './Icon.astro';
+interface Props { label: string; href: string; sublabel?: string; icon?: string; highlight?: boolean; external?: boolean }
+const { label, href, sublabel, icon, highlight = false, external = false } = Astro.props;
+---
+<a class:list={[styles.tile, highlight && styles.highlight]} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+  {icon && <span class={styles.iconWrap}><Icon name={icon} size={21} strokeWidth={2.1} /></span>}
+  <span class={styles.body}>
+    <span class={styles.label}>{label}</span>
+    {sublabel && <span class={styles.sublabel}>{sublabel}</span>}
+  </span>
+  <span class={styles.chevron}><Icon name="chevron-right" size={19} strokeWidth={2.3} /></span>
+</a>

@@ -1,0 +1,93 @@
+.footer {
+  width: 100%;
+  padding: 54px 24px 40px;
+  font-family: var(--font-kit-text-font);
+  box-sizing: border-box;
+  border-top: 1px solid #00359524;
+}
+
+.footerFull {
+  min-height: var(--con-kit-section-min-height, 100vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container {
+  max-width: 1250px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.brand { display: flex; flex-direction: column; gap: 15px; align-items: flex-start; }
+
+.logo { height: 46px; width: auto; display: block; }
+
+.tagline {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #003595AD;
+  margin: 0;
+  max-width: 440px;
+}
+
+.contact { display: flex; flex-direction: column; gap: 11px; }
+
+.contactTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-kit-key1, #003595);
+  margin: 0 0 3px;
+}
+
+.contactRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--color-kit-key1, #003595);
+  text-decoration: none;
+}
+
+.contactRow:hover { opacity: 0.7; }
+
+.contactIcon { color: var(--color-kit-key1, #003595); flex: 0 0 auto; }
+
+.bottom {
+  max-width: 1250px;
+  margin: 40px auto 0;
+  padding-top: 22px;
+  border-top: 1px solid #00359524;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.links { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+
+.link {
+  font-size: 14px;
+  color: #003595AD;
+  text-decoration: none;
+}
+
+.link:hover { color: var(--color-kit-key1, #003595); text-decoration: underline; }
+
+.copyright { font-size: 13.5px; color: #00359594; }
+
+@media (max-width: 1000px) {
+  .container { grid-template-columns: 1fr; gap: 32px; }
+}
+
+@media (max-width: 560px) {
+  .footer { padding: 40px 16px 32px; }
+  .bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .links { gap: 16px; }
+}

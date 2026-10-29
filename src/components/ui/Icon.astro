@@ -1,0 +1,60 @@
+---
+import styles from '../../styles/ui/icon.module.css';
+
+export type IconName =
+  | 'check' | 'check-circle' | 'phone' | 'clock' | 'shield' | 'star' | 'arrow-right' | 'arrow-left'
+  | 'heart' | 'home' | 'map-pin' | 'sparkle' | 'globe' | 'briefcase' | 'utensils' | 'key' | 'mail'
+  | 'chevron-right' | 'instagram' | 'facebook' | 'whatsapp';
+
+interface Props {
+  name: IconName | string;
+  size?: number;
+  color?: string;
+  strokeWidth?: number;
+  class?: string;
+}
+
+const { name, size = 20, color = 'currentColor', strokeWidth = 2, class: className = '' } = Astro.props;
+
+const FILLED = ['star', 'facebook', 'whatsapp'];
+
+const PATHS: Record<string, string> = {
+  check: '<polyline points="4 12.5 9 17.5 20 6.5" />',
+  'check-circle': '<circle cx="12" cy="12" r="9" /><polyline points="8 12.2 11 15.2 16.2 9" />',
+  phone: '<path d="M6.6 3.5h3l1.6 4-2 1.4a12 12 0 0 0 5.9 5.9l1.4-2 4 1.6v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7 2 2 0 0 1 6.6 3.5Z" />',
+  clock: '<circle cx="12" cy="12" r="9" /><polyline points="12 6.8 12 12 15.6 14" />',
+  shield: '<path d="M12 3.2 19 6v5.4c0 4.3-2.9 7.6-7 9.4-4.1-1.8-7-5.1-7-9.4V6l7-2.8Z" />',
+  star: '<path d="m12 4 2.5 5.2 5.5.8-4 3.9 1 5.6-5-2.7-5 2.7 1-5.6-4-3.9 5.5-.8L12 4Z" />',
+  'arrow-right': '<line x1="4.5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" />',
+  'arrow-left': '<line x1="19.5" y1="12" x2="5" y2="12" /><polyline points="11 6 5 12 11 18" />',
+  'chevron-right': '<polyline points="9.5 5.5 16 12 9.5 18.5" />',
+  heart: '<path d="M12 20s-7.4-4.4-7.4-9.3A4.1 4.1 0 0 1 12 8.2a4.1 4.1 0 0 1 7.4 2.5C19.4 15.6 12 20 12 20Z" />',
+  home: '<path d="M4 10.5 12 4l8 6.5V20H4v-9.5Z" /><polyline points="9.5 20 9.5 14 14.5 14 14.5 20" />',
+  'map-pin': '<path d="M12 21c4-4.6 6-8 6-10.6A6 6 0 0 0 6 10.4C6 13 8 16.4 12 21Z" /><circle cx="12" cy="10.3" r="2.3" />',
+  sparkle: '<path d="M12 3.5 13.8 9 19.5 10.8 13.8 12.6 12 18.2 10.2 12.6 4.5 10.8 10.2 9 12 3.5Z" />',
+  globe: '<circle cx="12" cy="12" r="9" /><line x1="3.2" y1="12" x2="20.8" y2="12" /><path d="M12 3.1c2.3 2.4 3.5 5.5 3.5 8.9S14.3 18.5 12 20.9c-2.3-2.4-3.5-5.5-3.5-8.9S9.7 5.5 12 3.1Z" />',
+  briefcase: '<rect x="3.2" y="7.5" width="17.6" height="12.5" rx="2.4" /><path d="M9 7.5V5.9a1.8 1.8 0 0 1 1.8-1.8h2.4A1.8 1.8 0 0 1 15 5.9v1.6" /><line x1="3.2" y1="12.6" x2="20.8" y2="12.6" />',
+  utensils: '<path d="M6.4 3.2v6.1a2.4 2.4 0 0 0 4.8 0V3.2" /><line x1="8.8" y1="3.2" x2="8.8" y2="9" /><line x1="8.8" y1="11.7" x2="8.8" y2="20.8" /><path d="M17.4 3.2c-1.7 1-2.6 2.8-2.6 5.1 0 1.8.7 3 2.1 3.5v9" />',
+  key: '<circle cx="8.2" cy="8.4" r="4.4" /><path d="M11.4 11.6 20 20.2" /><line x1="17.1" y1="17.3" x2="15" y2="19.4" />',
+  mail: '<rect x="3" y="5.2" width="18" height="13.6" rx="2.4" /><polyline points="3.6 6.8 12 13 20.4 6.8" />',
+  instagram: '<rect x="3.4" y="3.4" width="17.2" height="17.2" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="16.9" cy="7.1" r="1.1" />',
+  facebook: '<path d="M13.6 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.63A22 22 0 0 0 14.4 3.5c-2.38 0-4 1.45-4 4.12V9.9H7.7V13h2.7v8h3.2Z" />',
+  whatsapp: '<path d="M12.04 2.6a9.3 9.3 0 0 0-7.9 14.2L2.6 21.4l4.7-1.5a9.3 9.3 0 1 0 4.74-17.3Zm0 1.75a7.55 7.55 0 0 1 0 15.1 7.5 7.5 0 0 1-3.85-1.06l-.28-.16-2.78.88.9-2.7-.18-.29a7.5 7.5 0 0 1-1.16-4.02 7.55 7.55 0 0 1 7.55-7.55Zm-3.3 3.62c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.43 1.03 2.6c.13.16 1.75 2.78 4.28 3.79 2.1.83 2.53.66 2.99.62.46-.04 1.48-.6 1.69-1.19.2-.58.2-1.08.15-1.19-.06-.1-.23-.16-.48-.29-.25-.12-1.48-.73-1.71-.81-.23-.09-.4-.13-.56.12-.17.25-.65.81-.8.98-.14.16-.29.19-.54.06-.25-.12-1.06-.39-2.02-1.25-.75-.66-1.25-1.48-1.4-1.73-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.44-.06-.12-.55-1.36-.76-1.86-.2-.48-.4-.42-.55-.43h-.47Z" />',
+};
+
+const filled = FILLED.includes(name);
+---
+<svg
+  class:list={[styles.icon, className]}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill={filled ? color : 'none'}
+  stroke={filled ? 'none' : color}
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  set:html={PATHS[name] ?? ''}
+/>

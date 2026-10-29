@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroForm from '../components/sections/HeroForm.astro';
+import TrustBand from '../components/sections/TrustBand.astro';
+import WgVergleich from '../components/sections/WgVergleich.astro';
+import WgHaeuser from '../components/sections/WgHaeuser.astro';
+import WgKonzept from '../components/sections/WgKonzept.astro';
+import WgAblauf from '../components/sections/WgAblauf.astro';
+import ClosingCta from '../components/sections/ClosingCta.astro';
+import Faq from '../components/sections/Faq.astro';
+import Footer from '../components/sections/Footer.astro';
+import { sections } from '../data/sections';
+import { images } from '../data/images';
+import * as c from '../content/senioren-wg';
+
+const s = sections.seniorenWg;
+const h = c.hero;
+const steps = [
+  { key: 'fuer_wen', title: h.step1Title, options: h.step1Options },
+  { key: 'wohngemeinschaften', title: h.step2Title, hint: h.step2Hint, options: h.step2Options, multiple: true },
+  { key: 'zeitpunkt', title: h.step3Title, options: h.step3Options },
+  { key: 'pflegegrad', title: h.step4Title, hint: h.step4Hint, options: h.step4Options, grid: true },
+];
+---
+<Base title="Senioren-Wohngemeinschaften in Werne, Lünen und Ascheberg | Jakubke" description="Sechs ambulant betreute Senioren-Wohngemeinschaften in Werne, Lünen-Brambauer und Ascheberg. Eigenes Zimmer, 24 Stunden Betreuung, jeder Pflegegrad. Besichtigung kostenlos anfragen." ogImage={images.wgAussenansicht.src}>
+  {s.hero && <HeroForm form="seniorenWg" c={h} steps={steps} noteField />}
+  {s.vertrauensleiste && <TrustBand variant="seniorenWg" c={c.vertrauensleiste} />}
+  {s.wgStattHeim && <WgVergleich />}
+  {s.haeuser && <WgHaeuser />}
+  {s.betreuungskonzept && <WgKonzept />}
+  {s.ablauf && <WgAblauf />}
+  {s.abschluss && <ClosingCta variant="seniorenWg" c={c.abschluss} />}
+  {s.faq && <Faq c={c.faq} id="faq-wg" />}
+  {s.footer && <Footer c={c.footer} />}
+</Base>

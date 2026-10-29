@@ -1,0 +1,55 @@
+---
+import styles from '../../styles/sections/linktree.module.css';
+import Icon from '../ui/Icon.astro';
+import LinkTile from '../ui/LinkTile.astro';
+import logo from '../../assets/logo-jakubke.svg';
+import { enter } from '../../lib/reveal';
+import { linktree as c } from '../../content/start';
+
+const fadeOnly = (delay: number) => ({ 'data-enter': '', style: `--reveal-y:0px;--reveal-dur:0.4s;--reveal-delay:${delay}s` });
+---
+<section class:list={[styles.tree, styles.treeFull]} style={{ backgroundColor: c.bgColor }}>
+  {c.showBackdrop && (
+    <>
+      <span class={styles.backdrop} aria-hidden="true" />
+      <span class={styles.backdropTwo} aria-hidden="true" />
+    </>
+  )}
+  <div class={styles.container}>
+    <div class={styles.head} {...enter({ y: 16, dur: 0.45 })}>
+      <img class={styles.logo} src={logo.src} width={logo.width} height={logo.height} alt={c.logoAlt} fetchpriority="high" />
+      <h1 class={styles.name}>{c.name}</h1>
+      <p class={styles.claim}>{c.claim}</p>
+    </div>
+
+    <div class={styles.links}>
+      {c.links.map((link, index) => (
+        <div {...enter({ y: 14, dur: 0.4, delay: Number((0.06 + 0.06 * index).toFixed(2)) })}>
+          <LinkTile label={link.label} sublabel={link.sublabel} href={link.href} icon={link.icon} highlight={link.highlight} external={link.external} />
+        </div>
+      ))}
+    </div>
+
+    {c.socials.length > 0 && (
+      <div class={styles.social} {...fadeOnly(0.38)}>
+        <p class={styles.socialTitle}>{c.socialTitle}</p>
+        <div class={styles.socialRow}>
+          {c.socials.map((social) => (
+            <a class={styles.socialLink} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label}>
+              <Icon name={social.icon} size={23} strokeWidth={1.9} />
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class={styles.legal}>
+      <div class={styles.legalRow}>
+        {c.legalLinks.map((link) => (
+          <a class={styles.legalLink} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+        ))}
+      </div>
+      <p class={styles.copyright}>{c.copyright}</p>
+    </div>
+  </div>
+</section>

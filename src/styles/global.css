@@ -1,0 +1,79 @@
+/* Schrift lokal (keine Verbindung zu Google Fonts), nur genutzte Schnitte */
+@import '@fontsource/fira-sans/latin-400.css';
+@import '@fontsource/fira-sans/latin-500.css';
+@import '@fontsource/fira-sans/latin-600.css';
+@import '@fontsource/fira-sans/latin-700.css';
+
+/* Farb- und Schrift-Tokens – 1:1 aus dem Onepage-Farbschema / Font-Kit */
+:root {
+  --color-kit-white: #FFFFFF;
+  --color-kit-light: #FFFFFF;
+  --color-kit-key1: #003595;
+  --color-kit-key2: #FFDD00;
+  --color-kit-dark: #003595;
+  --color-kit-black: #003595;
+  --font-kit-text-font: 'Fira Sans', sans-serif;
+  --font-kit-header-font: 'Fira Sans', sans-serif;
+}
+
+*, ::after, ::before { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: var(--font-kit-text-font);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
+body a { text-decoration: none; }
+
+main > * + * { margin-top: -1px; }
+
+img { max-width: 100%; height: auto; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 100;
+  padding: 12px 18px; border-radius: 10px;
+  background: var(--color-kit-key1); color: #FFFFFF; font-weight: 600;
+}
+.skip-link:focus { top: 12px; }
+
+/* Einblend-Animationen (ersetzt framer-motion, gleiche Werte) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 20px)) scale(var(--reveal-scale, 1));
+  transition:
+    opacity var(--reveal-dur, 0.5s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    transform var(--reveal-dur, 0.5s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Einblenden beim Laden (Hero) */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(var(--reveal-y, 20px)); }
+  to { opacity: 1; transform: none; }
+}
+[data-enter] {
+  animation: rise-in var(--reveal-dur, 0.55s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal], [data-enter] { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  * { scroll-behavior: auto !important; }
+}
+
+/* Formular-Schritte */
+[hidden] { display: none !important; }
+
+.hp-field { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; overflow: hidden; }

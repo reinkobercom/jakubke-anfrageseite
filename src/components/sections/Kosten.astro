@@ -1,0 +1,41 @@
+---
+import styles from '../../styles/sections/kosten.module.css';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { reveal } from '../../lib/reveal';
+import { kostenuebernahme as c } from '../../content/haushaltshilfe';
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
+  <div class={styles.container}>
+    <div class={styles.left} {...reveal({ y: 22, dur: 0.55, amount: 0.3 })}>
+      <SectionHeading kicker={c.kicker} align="left">
+        <Title as="h2" size="lg">{c.headline}</Title>
+        <Text size="lg" muted>{c.intro}</Text>
+      </SectionHeading>
+      <div class={styles.highlight}>
+        <span class={styles.highlightGlow} aria-hidden="true" />
+        <span class={styles.highlightValue}>{c.highlightValue}</span>
+        <p class={styles.highlightLabel}>{c.highlightLabel}</p>
+        <p class={styles.highlightFootnote}><Icon name="clock" size={17} />{c.highlightFootnote}</p>
+      </div>
+      <div class={styles.ctaBlock}>
+        <Button href={c.ctaHref} variant="primary" size="lg">{c.ctaLabel}<Icon slot="iconRight" name="arrow-right" size={18} /></Button>
+        <Text size="xs" muted>{c.ctaNote}</Text>
+      </div>
+    </div>
+    <div class={styles.steps}>
+      {c.steps.map((s, i) => (
+        <div class={styles.step} {...reveal({ y: 20, dur: 0.45, delay: 0.05 * i, amount: 0.5 })}>
+          <span class={styles.stepNumber}>{i + 1}</span>
+          <div class={styles.stepBody}>
+            <Title as="h3" size="sm">{s.title}</Title>
+            <Text size="md" muted>{s.text}</Text>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

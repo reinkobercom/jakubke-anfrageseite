@@ -1,0 +1,7 @@
+# Die Seiten sind bewusst auf noindex gesetzt (Anzeigen-Landingpages).
+# Crawlen ist erlaubt, damit Suchmaschinen das noindex lesen können.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://anfrage.ihr-pflegestuetzpunkt.de/sitemap.xml

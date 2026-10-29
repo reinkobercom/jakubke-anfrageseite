@@ -1,0 +1,9 @@
+---
+import styles from '../../styles/ui/section-heading.module.css';
+interface Props { kicker?: string; align?: 'left' | 'center'; onDark?: boolean }
+const { kicker, align = 'left', onDark = false } = Astro.props;
+---
+<div class:list={[styles.heading, styles[align]]}>
+  {kicker && <span class:list={[styles.kicker, onDark && styles.kickerOnDark]}><span class={styles.rule} />{kicker}</span>}
+  <slot />
+</div>

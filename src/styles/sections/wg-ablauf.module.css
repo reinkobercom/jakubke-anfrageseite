@@ -1,0 +1,103 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding: 104px 24px;
+  font-family: var(--font-kit-text-font);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.sectionFull {
+  min-height: var(--con-kit-section-min-height, 100vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container {
+  max-width: 1250px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 66px;
+  align-items: start;
+}
+
+.head { margin-bottom: 32px; }
+
+.steps { display: flex; flex-direction: column; gap: 0; }
+
+.step {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  gap: 22px;
+  padding: 26px 0;
+  border-bottom: 1px solid #00359524;
+}
+
+.step:first-child { padding-top: 0; }
+.step:last-child { border-bottom: none; padding-bottom: 0; }
+
+.stepNumber {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-kit-header-font);
+  font-size: 20px;
+  font-weight: 700;
+  background-color: var(--color-kit-key2, #FFDD00);
+  color: var(--color-kit-key1, #003595);
+}
+
+.stepBody { display: flex; flex-direction: column; gap: 7px; padding-top: 4px; }
+
+.contactCard {
+  position: sticky;
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 26px 26px 28px;
+  border-radius: 20px;
+  background-color: #00359508;
+  border: 1px solid #00359529;
+}
+
+.contactPhoto {
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.contactMeta { display: flex; flex-direction: column; gap: 2px; }
+
+.phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--color-kit-key1, #003595);
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.phone:hover { text-decoration: underline; }
+
+@media (max-width: 1000px) {
+  .section { padding: 72px 20px; }
+  .container { grid-template-columns: 1fr; gap: 42px; }
+  .contactCard { position: static; }
+}
+
+@media (max-width: 560px) {
+  .section { padding: 56px 16px; }
+  .step { grid-template-columns: 46px 1fr; gap: 16px; padding: 22px 0; }
+  .stepNumber { width: 44px; height: 44px; font-size: 17px; }
+  .contactCard { padding: 20px; }
+}

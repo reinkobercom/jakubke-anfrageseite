@@ -1,0 +1,45 @@
+---
+import styles from '../../styles/sections/wg-konzept.module.css';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Photo from '../ui/Photo.astro';
+import { reveal } from '../../lib/reveal';
+import { betreuungskonzept as c } from '../../content/senioren-wg';
+const ICONS = ['clock', 'shield', 'heart', 'home'];
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
+  <span class={styles.glow} aria-hidden="true" />
+  <div class={styles.container}>
+    <div class={styles.head}>
+      <SectionHeading kicker={c.kicker} align="left" onDark>
+        <Title as="h2" size="lg" color="var(--color-kit-white)">{c.headline}</Title>
+        <Text size="lg" color="#FFFFFFC7">{c.intro}</Text>
+      </SectionHeading>
+    </div>
+    <div class={styles.grid}>
+      <div class={styles.points}>
+        {c.points.map((p, i) => (
+          <div class={styles.point} {...reveal({ y: 20, dur: 0.45, delay: 0.05 * i, amount: 0.4 })}>
+            <span class={styles.pointIcon}><Icon name={ICONS[i % ICONS.length]} size={21} strokeWidth={2.1} /></span>
+            <span class={styles.pointBody}>
+              <p class={styles.pointTitle}>{p.title}</p>
+              <p class={styles.pointText}>{p.text}</p>
+            </span>
+          </div>
+        ))}
+      </div>
+      <div class={styles.mosaic} {...reveal({ y: 0, scale: 0.97, dur: 0.6, amount: 0.2 })}>
+        <div class={styles.mosaicMain}><Photo class={styles.photo} src={c.imageMain} alt={c.imageMainAlt} sizes="(max-width: 1000px) 100vw, 640px" /></div>
+        <div class={styles.mosaicSmall}><Photo class={styles.photo} src={c.imageSecond} alt={c.imageSecondAlt} sizes="(max-width: 1000px) 50vw, 320px" widths={[400, 700, 1000]} /></div>
+        <div class={styles.mosaicSmall}><Photo class={styles.photo} src={c.imageThird} alt={c.imageThirdAlt} sizes="(max-width: 1000px) 50vw, 320px" widths={[400, 700, 1000]} /></div>
+      </div>
+    </div>
+    <div class={styles.actions}>
+      <Button href={c.ctaHref} variant="accent" size="lg">{c.ctaLabel}<Icon slot="iconRight" name="arrow-right" size={18} /></Button>
+      <a class={styles.phone} href={c.phoneHref}><Icon name="phone" size={19} />{c.phoneLabel}</a>
+    </div>
+  </div>
+</section>

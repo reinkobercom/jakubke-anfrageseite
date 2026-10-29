@@ -1,0 +1,38 @@
+---
+import styles from '../../styles/sections/leistungen.module.css';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Button from '../ui/Button.astro';
+import Card from '../ui/Card.astro';
+import Icon from '../ui/Icon.astro';
+import { reveal } from '../../lib/reveal';
+import { leistungen as c } from '../../content/haushaltshilfe';
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
+  <div class={styles.container}>
+    <div class={styles.head}>
+      <SectionHeading kicker={c.kicker} align="left">
+        <Title as="h2" size="lg">{c.headline}</Title>
+        <Text size="lg" muted>{c.intro}</Text>
+      </SectionHeading>
+    </div>
+    <div class={styles.grid}>
+      {c.services.map((s, i) => (
+        <div class={i % 3 === 1 ? styles.offset : undefined} {...reveal({ y: 26, dur: 0.5, delay: 0.05 * (i % 3), amount: 0.3 })}>
+          <Card variant="tinted" padding="md" hover>
+            <span class={styles.serviceIcon}><Icon name={s.icon} size={24} strokeWidth={2.1} /></span>
+            <div class={styles.serviceBody}>
+              <Title as="h3" size="sm">{s.title}</Title>
+              <Text size="sm" muted>{s.text}</Text>
+            </div>
+          </Card>
+        </div>
+      ))}
+    </div>
+    <div class={styles.footer}>
+      <Button href={c.ctaHref} variant="primary" size="lg">{c.ctaLabel}<Icon slot="iconRight" name="arrow-right" size={18} /></Button>
+      <Text size="sm" muted class={styles.footerNote}>{c.ctaNote}</Text>
+    </div>
+  </div>
+</section>

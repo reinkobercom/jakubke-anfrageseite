@@ -1,0 +1,6 @@
+---
+import styles from '../../styles/ui/badge.module.css';
+interface Props { variant?: 'soft' | 'accent' | 'onDark' | 'plain'; size?: 'sm' | 'md'; class?: string }
+const { variant = 'soft', size = 'md', class: className } = Astro.props;
+---
+<span class:list={[styles.badge, styles[variant], styles[size], className]}><slot name="icon" /><span><slot /></span></span>

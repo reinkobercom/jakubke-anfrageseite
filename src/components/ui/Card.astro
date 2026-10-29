@@ -1,0 +1,6 @@
+---
+import styles from '../../styles/ui/card.module.css';
+interface Props { variant?: 'light' | 'tinted' | 'onDark' | 'accent' | 'outlined'; padding?: 'sm' | 'md' | 'lg'; hover?: boolean; class?: string }
+const { variant = 'light', padding = 'md', hover = false, class: className } = Astro.props;
+---
+<div class:list={[styles.card, styles[variant], styles[padding], hover && styles.hover, className]}><slot /></div>

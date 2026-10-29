@@ -1,0 +1,6 @@
+---
+import styles from '../../styles/ui/title.module.css';
+interface Props { size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'; as?: 'h1' | 'h2' | 'h3' | 'h4' | 'div' | 'p'; color?: string; align?: 'left' | 'center' | 'right'; class?: string; id?: string }
+const { size = 'md', as: Tag = 'h2', color, align = 'left', class: className, id } = Astro.props;
+---
+<Tag id={id} class:list={[styles.title, styles[size], styles[align], className]} style={color ? { color } : undefined}><slot /></Tag>

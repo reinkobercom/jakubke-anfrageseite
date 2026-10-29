@@ -1,0 +1,46 @@
+---
+import styles from '../../styles/sections/wg-haeuser.module.css';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Title from '../ui/Title.astro';
+import Text from '../ui/Text.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Photo from '../ui/Photo.astro';
+import { reveal } from '../../lib/reveal';
+import { haeuser as c } from '../../content/senioren-wg';
+---
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
+  <div class={styles.container}>
+    <div class={styles.head}>
+      <SectionHeading kicker={c.kicker} align="left">
+        <Title as="h2" size="lg">{c.headline}</Title>
+        <Text size="lg" muted>{c.intro}</Text>
+      </SectionHeading>
+    </div>
+    <div class={styles.grid}>
+      {c.houses.map((h, i) => (
+        <article class={styles.card} {...reveal({ y: 26, dur: 0.5, delay: 0.05 * (i % 3), amount: 0.2 })}>
+          <div class={styles.imageWrap}>
+            <Photo class={styles.photo} src={h.image} alt={h.imageAlt} sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 400px" widths={[400, 700, 1000]} />
+            <span class={styles.sinceBadge}>{h.since}</span>
+          </div>
+          <div class={styles.body}>
+            <h3 class={styles.name}>{h.name}</h3>
+            <p class={styles.place}>{h.place}</p>
+            <p class={styles.text}>{h.text}</p>
+            <div class={styles.facts}>
+              <span class={styles.fact}><span class={styles.factIcon}><Icon name="map-pin" size={16} /></span>{h.address}</span>
+              <span class={styles.fact}><span class={styles.factIcon}><Icon name="home" size={16} /></span>{h.rooms}</span>
+              <span class={styles.fact}><span class={styles.factIcon}><Icon name="sparkle" size={16} /></span>{h.features}</span>
+            </div>
+            <a class={styles.link} href={h.href} target="_blank" rel="noopener noreferrer">{c.detailLabel}<span class="sr-only"> zur WG {h.name}</span><Icon name="arrow-right" size={16} /></a>
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class={styles.footer}>
+      <Button href={c.ctaHref} variant="primary" size="lg">{c.ctaLabel}<Icon slot="iconRight" name="arrow-right" size={18} /></Button>
+      <Text size="sm" muted class={styles.footerNote}>{c.ctaNote}</Text>
+    </div>
+  </div>
+</section>
