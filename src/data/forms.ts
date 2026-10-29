@@ -7,19 +7,24 @@
 export const mail = {
   // Absender – die Domain muss in Resend verifiziert sein
   from: 'Reinkober Leadportal <leads@reinkober-leadportal.com>',
+  // Betreff: „Neue Anfrage | Kundenname - reinkober.com | Thema“
+  client: 'Pflegedienst Jakubke',
 };
 
 export const forms = {
   haushaltshilfe: {
     title: 'Haushaltshilfe – Anfrage',
+    topic: 'Haushaltshilfe',
     recipients: ['leads@reinkober.agency', 'info@ihr-pflegestuetzpunkt.de'],
   },
   seniorenWg: {
     title: 'Senioren-Wohngemeinschaften – Anfrage',
+    topic: 'Senioren-WG',
     recipients: ['info@ihr-pflegestuetzpunkt.de', 'leads@reinkober.agency'],
   },
   kontakt: {
     title: 'Kontaktformular',
+    topic: 'Kontaktformular', // + gewähltes Thema, z. B. „Kontaktformular – Bewerbung“
     recipients: ['info@ihr-pflegestuetzpunkt.de', 'leads@reinkober.agency'],
   },
 } as const;

@@ -134,7 +134,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const cfg = forms[formKey];
   const when = new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Berlin' }).format(new Date());
-  const subject = `Neue Anfrage: ${cfg.title} – ${values.name}`;
+  // Betreff: „Neue Anfrage | Pflegedienst Jakubke - reinkober.com | Haushaltshilfe“
+  const topic = formKey === 'kontakt' && values.betreff ? `${cfg.topic} – ${values.betreff}` : cfg.topic;
+  const subject = `Neue Anfrage | ${mail.client} - reinkober.com | ${topic}`;
 
   const table = (list: { label: string; value: string }[]) =>
     list

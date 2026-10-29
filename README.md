@@ -67,6 +67,7 @@ Welche Bewertungen gezeigt werden, wird im Trustindex-Konto eingestellt.
 
 - Alle drei Formulare senden an `src/pages/api/anfrage.ts` (Vercel-Funktion).
 - Versand per [Resend](https://resend.com) von `leads@reinkober-leadportal.com`.
+- Betreff: `Neue Anfrage | Pflegedienst Jakubke - reinkober.com | Thema` (Thema = Haushaltshilfe, Senioren-WG oder „Kontaktformular – gewählter Betreff“). Einstellbar in `src/data/forms.ts`.
 - „Antworten“ in der Mail geht direkt an die Adresse, die der Besucher eingetragen hat
   (bei Haushaltshilfe und WG ist die E-Mail optional – dann steht in der Mail „bitte telefonisch zurückrufen“).
 - In der Mail stehen unten die Herkunftsdaten der Anzeige (UTM-Parameter, gclid/fbclid, Seite).
@@ -98,7 +99,7 @@ Erst umstellen, wenn die Vercel-Vorschau geprüft ist und Testanfragen angekomme
 
 1. In Vercel: Project → Settings → Domains → `anfrage.ihr-pflegestuetzpunkt.de` (ist eingetragen).
    Vercel zeigt dort den nötigen DNS-Eintrag an.
-2. Beim DNS-Anbieter der Domain `ihr-pflegestuetzpunkt.de` (IONOS, Nameserver `*.rzone.de`):
+2. Beim DNS-Anbieter der Domain `ihr-pflegestuetzpunkt.de` (Strato, Nameserver `*.rzone.de`):
    - Den bisherigen **CNAME `anfrage` → `whitelabel.onepage.io`** entfernen bzw. ändern.
    - Neu: **CNAME `anfrage` → `ac7b6cc5ee27a53c.vercel-dns-016.com`**
      (Alternative laut Vercel: `cname.vercel-dns.com`).
