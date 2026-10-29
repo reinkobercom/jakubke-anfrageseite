@@ -21,7 +21,7 @@ import { haeuser as c } from '../../content/senioren-wg';
       {c.houses.map((h, i) => (
         <article class={styles.card} {...reveal({ y: 26, dur: 0.5, delay: 0.05 * (i % 3), amount: 0.2 })}>
           <div class={styles.imageWrap}>
-            <Photo class={styles.photo} src={h.image} alt={h.imageAlt} sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 400px" widths={[400, 700, 1000]} />
+            <Photo class={styles.photo} src={h.image} alt={h.imageAlt} sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 400px" widths={[400, 560, 800, 1000]} />
             <span class={styles.sinceBadge}>{h.since}</span>
           </div>
           <div class={styles.body}>
