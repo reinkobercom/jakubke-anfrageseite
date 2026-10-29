@@ -1,12 +1,12 @@
 ---
 // Kundenstimmen: echte Google-Bewertungen über Trustindex.
-// Die Widgets werden erst geladen, wenn die Sektion in die Nähe des Sichtbereichs kommt.
+// Die Loader werden nach dem Seitenaufbau eingebunden.
 import styles from '../../styles/sections/kundenstimmen.module.css';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Title from '../ui/Title.astro';
 import { kundenstimmen as c } from '../../content/haushaltshilfe';
 ---
-<section class={styles.section} style={{ backgroundColor: c.bgColor }} data-trustindex-section>
+<section class={styles.section} style={{ backgroundColor: c.bgColor }}>
   <div class={styles.container}>
     <div class={styles.head}>
       <SectionHeading kicker={c.kicker} align="left">
@@ -25,8 +25,10 @@ import { kundenstimmen as c } from '../../content/haushaltshilfe';
 </style>
 
 <script>
-  const load = (section: Element) => {
-    section.querySelectorAll<HTMLElement>('[data-trustindex]').forEach((box) => {
+  // Trustindex-Loader nach dem Laden der Seite einbinden (nicht im kritischen Pfad).
+  // Die Widgets selbst lädt Trustindex anschließend erst bei Bedarf.
+  const load = () => {
+    document.querySelectorAll<HTMLElement>('[data-trustindex]').forEach((box) => {
       if (box.dataset.loaded) return;
       box.dataset.loaded = '1';
       const s = document.createElement('script');
@@ -36,17 +38,6 @@ import { kundenstimmen as c } from '../../content/haushaltshilfe';
       box.appendChild(s);
     });
   };
-  document.querySelectorAll('[data-trustindex-section]').forEach((section) => {
-    if (!('IntersectionObserver' in window)) return load(section);
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          io.disconnect();
-          load(section);
-        }
-      },
-      { rootMargin: '600px 0px' },
-    );
-    io.observe(section);
-  });
+  if (document.readyState === 'complete') load();
+  else window.addEventListener('load', load, { once: true });
 </script>
