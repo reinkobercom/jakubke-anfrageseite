@@ -4,7 +4,9 @@
 import styles from '../../styles/sections/kundenstimmen.module.css';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Title from '../ui/Title.astro';
-import { kundenstimmen as c } from '../../content/haushaltshilfe';
+import { kundenstimmen as defaults } from '../../content/haushaltshilfe';
+// Inhalt kommt standardmäßig von der Haushaltshilfe-Seite, andere Seiten übergeben ihren eigenen
+const { c = defaults } = Astro.props as { c?: any };
 ---
 <section class={styles.section} style={{ backgroundColor: c.bgColor }}>
   <div class={styles.container}>

@@ -7,7 +7,9 @@ import Button from '../ui/Button.astro';
 import Card from '../ui/Card.astro';
 import Icon from '../ui/Icon.astro';
 import { reveal } from '../../lib/reveal';
-import { leistungen as c } from '../../content/haushaltshilfe';
+import { leistungen as defaults } from '../../content/haushaltshilfe';
+// Inhalt kommt standardmäßig von der Haushaltshilfe-Seite, andere Seiten übergeben ihren eigenen
+const { c = defaults } = Astro.props as { c?: any };
 ---
 <section class={styles.section} style={{ backgroundColor: c.bgColor }}>
   <div class={styles.container}>
@@ -18,7 +20,7 @@ import { leistungen as c } from '../../content/haushaltshilfe';
       </SectionHeading>
     </div>
     <div class={styles.grid}>
-      {c.services.map((s, i) => (
+      {c.services.map((s: any, i: number) => (
         <div class={i % 3 === 1 ? styles.offset : undefined} {...reveal({ y: 26, dur: 0.5, delay: 0.05 * (i % 3), amount: 0.3 })}>
           <Card variant="tinted" padding="md" hover>
             <span class={styles.serviceIcon}><Icon name={s.icon} size={24} strokeWidth={2.1} /></span>

@@ -10,6 +10,19 @@ gebaut mit [Astro](https://astro.build), gehostet auf Vercel.
 | Senioren-Wohngemeinschaften (mit 5-Schritt-Formular) | `/senioren-wg` |
 | Kontakt (mit Kontaktformular) | `/kontakt` |
 | Dankeseite nach dem Absenden | `/danke` |
+| **Entwurf:** Menüservice (3-Schritt-Formular, kompakt) | `/menueservice` |
+| **Entwurf:** Ambulante Pflege (3-Schritt-Formular) | `/ambulante-pflege` |
+| **Entwurf:** Betreutes Wohnen (3-Schritt-Formular) | `/betreutes-wohnen` |
+
+Die drei Entwürfe sind noch **nicht im Linktree verlinkt** und nicht in der Sitemap. Nach Freigabe
+durch den Kunden in `src/content/start.ts` die Link-Ziele auf die neuen Seiten umstellen
+(heute zeigen „Menüservice“, „Ambulante Pflege“ und „Betreutes Wohnen“ auf die Hauptseite) und
+die Seiten in `src/pages/sitemap.xml.ts` ergänzen.
+
+### Platzhalter
+
+Text in `[[doppelten eckigen Klammern]]` in den Inhaltsdateien erscheint auf der Seite **gelb markiert**.
+So sieht der Kunde beim Prüfen, wo noch Angaben fehlen. Klammern entfernen, Text ersetzen – fertig.
 
 Alle Seiten stehen bewusst auf **noindex** (Anzeigen-Landingpages, wie bisher in Onepage).
 
@@ -32,6 +45,9 @@ Vercel baut die Seite danach automatisch neu – nach ca. 1 Minute ist sie live.
 | Texte Kontaktseite | `src/content/kontakt.ts` |
 | Texte Linkliste | `src/content/start.ts` |
 | Texte Dankeseite | `src/content/danke.ts` |
+| Texte Menüservice | `src/content/menueservice.ts` |
+| Texte Ambulante Pflege | `src/content/ambulante-pflege.ts` |
+| Texte Betreutes Wohnen | `src/content/betreutes-wohnen.ts` |
 
 Wichtig beim Bearbeiten der Textdateien: Nur den Text zwischen den Anführungszeichen ändern,
 Anführungszeichen und Kommas stehen lassen.

@@ -1,0 +1,27 @@
+---
+// ENTWURF zur Prüfung durch den Kunden – noch nicht im Linktree verlinkt, noindex.
+import Base from '../layouts/Base.astro';
+import HeroForm from '../components/sections/HeroForm.astro';
+import TrustBand from '../components/sections/TrustBand.astro';
+import Leistungen from '../components/sections/Leistungen.astro';
+import Kundenstimmen from '../components/sections/Kundenstimmen.astro';
+import Faq from '../components/sections/Faq.astro';
+import Footer from '../components/sections/Footer.astro';
+
+import { sections } from '../data/sections';
+import * as c from '../content/menueservice';
+
+const s = sections.menueservice;
+const steps = [
+  { key: 'fuer_wen', title: c.hero.step1Title, options: c.hero.step1Options },
+  { key: 'auswahl', title: c.hero.step2Title, hint: c.hero.step2Hint, options: c.hero.step2Options, multiple: true },
+];
+---
+<Base title={c.meta.title} description={c.meta.description}>
+  {s.hero && <HeroForm form="menueservice" c={c.hero} steps={steps} />}
+  {s.vertrauensleiste && <TrustBand variant="haushaltshilfe" c={c.vertrauensleiste} />}
+  {s.leistungen && <Leistungen c={c.leistungen} />}
+  {s.kundenstimmen && <Kundenstimmen c={c.kundenstimmen} />}
+  {s.faq && <Faq c={c.faq} id="faq-menueservice" />}
+  {s.footer && <Footer c={c.footer} />}
+</Base>

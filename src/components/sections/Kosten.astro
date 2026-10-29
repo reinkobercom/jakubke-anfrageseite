@@ -6,7 +6,9 @@ import Text from '../ui/Text.astro';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import { reveal } from '../../lib/reveal';
-import { kostenuebernahme as c } from '../../content/haushaltshilfe';
+import { kostenuebernahme as defaults } from '../../content/haushaltshilfe';
+// Inhalt kommt standardmäßig von der Haushaltshilfe-Seite, andere Seiten übergeben ihren eigenen
+const { c = defaults } = Astro.props as { c?: any };
 ---
 <section class={styles.section} style={{ backgroundColor: c.bgColor }}>
   <div class={styles.container}>
@@ -27,7 +29,7 @@ import { kostenuebernahme as c } from '../../content/haushaltshilfe';
       </div>
     </div>
     <div class={styles.steps}>
-      {c.steps.map((s, i) => (
+      {c.steps.map((s: any, i: number) => (
         <div class={styles.step} {...reveal({ y: 20, dur: 0.45, delay: 0.05 * i, amount: 0.5 })}>
           <span class={styles.stepNumber}>{i + 1}</span>
           <div class={styles.stepBody}>

@@ -22,6 +22,21 @@ export const forms = {
     topic: 'Senioren-WG',
     recipients: ['info@ihr-pflegestuetzpunkt.de', 'leads@reinkober.agency'],
   },
+  menueservice: {
+    title: 'Menüservice – Anfrage',
+    topic: 'Menüservice',
+    recipients: ['info@ihr-pflegestuetzpunkt.de', 'leads@reinkober.agency'],
+  },
+  ambulantePflege: {
+    title: 'Ambulante Pflege – Anfrage',
+    topic: 'Ambulante Pflege',
+    recipients: ['info@ihr-pflegestuetzpunkt.de', 'leads@reinkober.agency'],
+  },
+  betreutesWohnen: {
+    title: 'Betreutes Wohnen – Anfrage',
+    topic: 'Betreutes Wohnen',
+    recipients: ['info@ihr-pflegestuetzpunkt.de', 'leads@reinkober.agency'],
+  },
   kontakt: {
     title: 'Kontaktformular',
     topic: 'Kontaktformular', // + gewähltes Thema, z. B. „Kontaktformular – Bewerbung“

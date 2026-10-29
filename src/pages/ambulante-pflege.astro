@@ -1,0 +1,34 @@
+---
+// ENTWURF zur Prüfung durch den Kunden – noch nicht im Linktree verlinkt, noindex.
+import Base from '../layouts/Base.astro';
+import HeroForm from '../components/sections/HeroForm.astro';
+import TrustBand from '../components/sections/TrustBand.astro';
+import Leistungen from '../components/sections/Leistungen.astro';
+import Kundenstimmen from '../components/sections/Kundenstimmen.astro';
+import Faq from '../components/sections/Faq.astro';
+import Footer from '../components/sections/Footer.astro';
+import Kosten from '../components/sections/Kosten.astro';
+import Menschen from '../components/sections/Menschen.astro';
+import Einzugsgebiet from '../components/sections/Einzugsgebiet.astro';
+import ClosingCta from '../components/sections/ClosingCta.astro';
+import { sections } from '../data/sections';
+import * as c from '../content/ambulante-pflege';
+
+const s = sections.ambulantePflege;
+const steps = [
+  { key: 'fuer_wen', title: c.hero.step1Title, options: c.hero.step1Options },
+  { key: 'auswahl', title: c.hero.step2Title, hint: c.hero.step2Hint, options: c.hero.step2Options, multiple: true },
+];
+---
+<Base title={c.meta.title} description={c.meta.description}>
+  {s.hero && <HeroForm form="ambulantePflege" c={c.hero} steps={steps} />}
+  {s.vertrauensleiste && <TrustBand variant="haushaltshilfe" c={c.vertrauensleiste} />}
+  {s.kosten && <Kosten c={c.kostenuebernahme} />}
+  {s.leistungen && <Leistungen c={c.leistungen} />}
+  {s.menschen && <Menschen c={c.menschen} />}
+  {s.kundenstimmen && <Kundenstimmen c={c.kundenstimmen} />}
+  {s.einzugsgebiet && <Einzugsgebiet c={c.einzugsgebiet} />}
+  {s.abschluss && <ClosingCta variant="haushaltshilfe" c={c.abschluss} />}
+  {s.faq && <Faq c={c.faq} id="faq-ambulante-pflege" />}
+  {s.footer && <Footer c={c.footer} />}
+</Base>

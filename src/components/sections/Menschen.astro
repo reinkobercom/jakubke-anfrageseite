@@ -6,7 +6,9 @@ import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import Photo from '../ui/Photo.astro';
 import { reveal } from '../../lib/reveal';
-import { menschen as c } from '../../content/haushaltshilfe';
+import { menschen as defaults } from '../../content/haushaltshilfe';
+// Inhalt kommt standardmäßig von der Haushaltshilfe-Seite, andere Seiten übergeben ihren eigenen
+const { c = defaults } = Astro.props as { c?: any };
 ---
 <section class={styles.section} style={{ backgroundColor: c.bgColor }}>
   <span class={styles.glow} aria-hidden="true" />
@@ -23,7 +25,7 @@ import { menschen as c } from '../../content/haushaltshilfe';
       <div class={styles.quoteBox}>
         <p class={styles.quoteText}>{c.quote}</p>
         <div class={styles.quoteAuthor}>
-          <Photo class={styles.quoteAvatar} src={c.quoteImage} alt={c.quoteName} sizes="64px" widths={[128, 192]} />
+          {c.quoteImage && <Photo class={styles.quoteAvatar} src={c.quoteImage} alt={c.quoteName} sizes="64px" widths={[128, 192]} />}
           <span class={styles.quoteMeta}>
             <span class={styles.quoteName}>{c.quoteName}</span>
             <span class={styles.quoteRole}>{c.quoteRole}</span>
@@ -31,7 +33,7 @@ import { menschen as c } from '../../content/haushaltshilfe';
         </div>
       </div>
       <ul class={styles.points}>
-        {c.points.map((p) => (
+        {c.points.map((p: any) => (
           <li class={styles.point}><span class={styles.pointIcon}><Icon name="check" size={19} strokeWidth={2.6} /></span>{p.text}</li>
         ))}
       </ul>

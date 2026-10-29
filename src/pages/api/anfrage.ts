@@ -10,6 +10,9 @@ import { site } from '../../data/site';
 import * as hh from '../../content/haushaltshilfe';
 import * as wg from '../../content/senioren-wg';
 import * as kt from '../../content/kontakt';
+import * as ms from '../../content/menueservice';
+import * as ap from '../../content/ambulante-pflege';
+import * as bw from '../../content/betreutes-wohnen';
 
 export const prerender = false;
 
@@ -33,6 +36,18 @@ function rateLimited(ip: string): boolean {
 type FieldDef = { key: string; label: string; required?: boolean; options?: string[]; multiple?: boolean; email?: boolean; max?: number };
 const labels = (o: { label: string }[]) => o.map((x) => x.label);
 
+// Kurzformular (3 Schritte): Für wen → Auswahl (mehrfach) → Kontakt
+function shortForm(h: any, whoLabel: string, choiceLabel: string): FieldDef[] {
+  return [
+    { key: 'fuer_wen', label: whoLabel, required: true, options: labels(h.step1Options) },
+    { key: 'auswahl', label: choiceLabel, required: true, options: labels(h.step2Options), multiple: true },
+    { key: 'name', label: 'Name', required: true, max: 200 },
+    { key: 'telefon', label: 'Telefon', required: true, max: 60 },
+    { key: 'email', label: 'E-Mail', email: true, max: 200 },
+    { key: 'erreichbarkeit', label: 'Beste Erreichbarkeit', required: true, options: labels(h.reachOptions) },
+  ];
+}
+
 const DEFS: Record<FormKey, FieldDef[]> = {
   haushaltshilfe: [
     { key: 'fuer_wen', label: 'Für wen', required: true, options: labels(hh.hero.step1Options) },
@@ -55,6 +70,9 @@ const DEFS: Record<FormKey, FieldDef[]> = {
     { key: 'erreichbarkeit', label: 'Beste Erreichbarkeit', required: true, options: labels(wg.hero.reachOptions) },
     { key: 'anmerkung', label: 'Anmerkung', max: 5000 },
   ],
+  menueservice: shortForm(ms.hero, 'Für wen', 'Gewünscht'),
+  ambulantePflege: shortForm(ap.hero, 'Für wen', 'Benötigte Unterstützung'),
+  betreutesWohnen: shortForm(bw.hero, 'Für wen', 'Standort'),
   kontakt: [
     { key: 'betreff', label: 'Worum geht es?', required: true, options: labels(kt.kontakt.subjectOptions) },
     { key: 'name', label: 'Name', required: true, max: 200 },

@@ -77,3 +77,12 @@ img { max-width: 100%; height: auto; }
 [hidden] { display: none !important; }
 
 .hp-field { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; overflow: hidden; }
+
+/* Platzhalter für fehlende Kundenangaben (siehe src/middleware.ts) */
+mark.ph {
+  background: #FFDD00;
+  color: #003595;
+  box-shadow: 0 0 0 2px #FFDD00, 0 0 0 4px #C0392B;
+  border-radius: 3px;
+  padding: 0 3px;
+}

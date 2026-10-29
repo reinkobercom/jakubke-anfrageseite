@@ -1,5 +1,5 @@
 ---
-// Hero mit 5-Schritt-Anfrageformular (Haushaltshilfe und Senioren-WG).
+// Hero mit Mehrschritt-Anfrageformular (Haushaltshilfe, Senioren-WG und weitere Angebote).
 // Optik 1:1 aus Onepage; Versand über /api/anfrage (Resend).
 import hhStyles from '../../styles/sections/hero-haushaltshilfe.module.css';
 import wgStyles from '../../styles/sections/hero-wg.module.css';
@@ -18,15 +18,15 @@ import type { ImageMetadata } from 'astro';
 
 interface Step { key: string; title: string; hint?: string; options: { label: string }[]; multiple?: boolean; grid?: boolean }
 interface Props {
-  form: 'haushaltshilfe' | 'seniorenWg';
-  c: Record<string, any> & { expertImage: ImageMetadata };
+  form: 'haushaltshilfe' | 'seniorenWg' | 'menueservice' | 'ambulantePflege' | 'betreutesWohnen';
+  c: Record<string, any> & { expertImage?: ImageMetadata };
   steps: Step[];
   noteField?: boolean;
 }
 
 const { form, c, steps, noteField = false } = Astro.props;
-const styles = form === 'haushaltshilfe' ? hhStyles : wgStyles;
-const idp = form === 'haushaltshilfe' ? 'hh' : 'wg';
+const styles = form === 'seniorenWg' ? wgStyles : hhStyles;
+const idp = ({ haushaltshilfe: 'hh', seniorenWg: 'wg', menueservice: 'ms', ambulantePflege: 'ap', betreutesWohnen: 'bw' } as const)[form];
 const TOTAL = steps.length + 1;
 const list = (v: any) => (Array.isArray(v) ? v : []);
 ---
@@ -65,10 +65,10 @@ const list = (v: any) => (Array.isArray(v) ? v : []);
         </div>
 
         <div class={styles.expert}>
-          <Photo src={c.expertImage} alt={c.expertName} class={styles.expertAvatar} sizes="56px" widths={[112, 168]} eager />
+          {c.expertImage && <Photo src={c.expertImage} alt={c.expertName} class={styles.expertAvatar} sizes="56px" widths={[112, 168]} eager />}
           <div class={styles.expertMeta}>
-            <Text size="sm" strong>{c.expertName}</Text>
-            <Text size="xs" muted>{c.expertRole}</Text>
+            {c.expertName && <Text size="sm" strong>{c.expertName}</Text>}
+            {c.expertRole && <Text size="xs" muted>{c.expertRole}</Text>}
             <a class={styles.phoneLink} href={c.phoneHref}><Icon name="phone" size={15} />{c.phoneLabel}</a>
           </div>
         </div>
